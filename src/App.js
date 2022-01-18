@@ -61,8 +61,12 @@ function List(props){
                 <div className="fw-bold">{props.human[i].name}</div>
                 <p>{props.human[i].birth_y}년 {props.human[i].birth_m}월 {props.human[i].birth_d}일</p>
               </div>
-              <Badge variant="primary" pill>14</Badge>
-            </ListGroup.Item>
+              <Badge variant="primary" pill onClick={()=>{
+                  var array = [...props.human]
+                  array[i].good = array[i].good + 1
+                  props.setHuman(array)
+                }}>{props.human[i].good}</Badge>
+              </ListGroup.Item>
           )
         })
       }
