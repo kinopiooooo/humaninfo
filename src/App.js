@@ -1,4 +1,7 @@
+
 import { Badge, Container, ListGroup, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import React from 'react';
+import {Container, Nav, Navbar, NavDropdown} from 'react-bootstrap';
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
@@ -24,7 +27,7 @@ function App() {
     <div className="App">
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="#home">인재정보</Navbar.Brand>
+          <Navbar.Brand href="#home">Human-Info</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
