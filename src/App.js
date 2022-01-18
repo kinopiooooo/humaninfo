@@ -1,10 +1,9 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import {Badge, Container, Figure, ListGroup, Nav, Navbar, NavDropdown} from 'react-bootstrap';
+import {Badge, Button, Container, Figure, ListGroup, Nav, Navbar, NavDropdown} from 'react-bootstrap';
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 
 function App() {
 
@@ -64,42 +63,16 @@ function HumanList(props){
               <div className="fw-bold">{props.human[i].name}</div>
               <span>{props.human[i].birth_y}년 {props.human[i].birth_m}월 {props.human[i].birth_d}일</span>
             </div>
-            <Badge variant="primary" pill onClick={()=>{
-              var array = [...props.human]
-              array[i].good = array[i].good + 1
-              props.setHuman(array)
-            }}>{props.human[i].good}</Badge>
+            <Button variant="primary" onClick={()=>{
+                    var array = [...props.human]
+                    array[i].good = array[i].good + 1
+                    props.setHuman(array)
+                  }}> <i class="bi bi-hand-thumbs-up"></i> <Badge bg="secondary" pill> {props.human[i].good} </Badge>
+                </Button>
           </ListGroup.Item>
         )
       })
     }
-      
-    </ListGroup>
-  )
-}
-
-
-function List(props){
-  return(
-    <ListGroup as="ol" numbered>
-      {
-        props.human.map((item, i)=>{
-          return(
-            <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start" key={i}>
-              <div className="ms-2 me-auto">
-                <div className="fw-bold">{props.human[i].name}</div>
-                <p>{props.human[i].birth_y}년 {props.human[i].birth_m}월 {props.human[i].birth_d}일</p>
-              </div>
-              <Badge variant="primary" pill onClick={()=>{
-                  var array = [...props.human]
-                  array[i].good = array[i].good + 1
-                  props.setHuman(array)
-                }}>{props.human[i].good}</Badge>
-              </ListGroup.Item>
-          )
-        })
-      }
-      
     </ListGroup>
   )
 }
