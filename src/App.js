@@ -1,9 +1,15 @@
 import axios from 'axios';
-import {Badge, Button, Container, Figure, ListGroup, Nav, Navbar, NavDropdown} from 'react-bootstrap';
+import {Badge, Button, Card, Container, Figure, ListGroup, Nav, Navbar, NavDropdown} from 'react-bootstrap';
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+import { Link, Route, Routes, Switch } from 'react-router-dom';
+import HumanList from './HumanList';
+import Following from './Following';
+
+export let humanContext = React.createContext();
+
 
 function App() {
 
@@ -16,10 +22,8 @@ function App() {
     axios.get('https://oiponik.github.io/YoBatWedding/data.json')
     .then((result)=>{
       setHuman([...result.data])
-      console.log(human)
       })
     .catch(()=>{ 
-      console.log('실패')
       })
   }, [])
 
@@ -27,53 +31,71 @@ function App() {
     <div className="App">
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="#home">Human-Info</Navbar.Brand>
+          <Navbar.Brand href="/">Human-Info</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+              <Nav.Link href="comList">기업 정보</Nav.Link>
+              <Nav.Link href="humanList">인재 정보</Nav.Link>
+
+              <NavDropdown title="MyPage" id="basic-nav-dropdown">
+                <NavDropdown.Item href="/following">Following</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <HumanList human={ human } setHuman = {setHuman}></HumanList>
+      <Switch>
+        <Route exact path="/">
+          <Home></Home>
+        </Route>
+        <Route path="/humanList">
+          <humanContext.Provider value={human}>
+            <HumanList setHuman={ setHuman }></HumanList>
+          </humanContext.Provider>
+        </Route>
+        <Route path="/following">
+          <Following></Following>
+        </Route>
+        <Route path="/:id">
+          404 Error
+          
+        </Route>
+      </Switch>
+      {/* <HumanList human={ human } setHuman = {setHuman}></HumanList> */}
     </div>
   );
 }
-
-function HumanList(props){
+function Home(){
   return(
-    <ListGroup as="ol" numbered>
-    {
-       props.human.map((item, i)=>{
-         return(
-          <ListGroup.Item as="li" className="d-flex justify-content-between align-items-center" key={i}>
-            <div className='rounded overflow-hidden' style={{"width":"50px","height":"70px"}}>
-              <img src={props.human[i].photo} style={{"width":"100%","height":"100%","object-fit":"cover"}}/>
-            </div>
-            <div className="">
-              <div className="fw-bold">{props.human[i].name}</div>
-              <span>{props.human[i].birth_y}년 {props.human[i].birth_m}월 {props.human[i].birth_d}일</span>
-            </div>
-            <Button variant="primary" onClick={()=>{
-                    var array = [...props.human]
-                    array[i].good = array[i].good + 1
-                    props.setHuman(array)
-                  }}> <i class="bi bi-hand-thumbs-up"></i> <Badge bg="secondary" pill> {props.human[i].good} </Badge>
-                </Button>
-          </ListGroup.Item>
-        )
-      })
-    }
-    </ListGroup>
+    <Container className='my-3'>
+      <div className='row g-2'>
+        <div className='col-md-6'>
+          <Card className=''>
+            <Card.Body>
+              <Card.Title>기업 정보</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted">DB에 저장된 기업정보</Card.Subtitle>
+              <Card.Text>
+                여러 기업의 정보를 조회할 수 있습니다
+              </Card.Text>
+              <Button variant="primary">기업정보 보기</Button>
+            </Card.Body>
+          </Card>
+        </div>
+        <div className='col-md-6'>
+          <Card className=''>
+            <Card.Body>
+              <Card.Title>인재 정보</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted">DB에 저장된 인재정보</Card.Subtitle>
+              <Card.Text>
+                여러 관련 인재정보를 조회할 수 있습니다
+              </Card.Text>
+              <Button variant="primary" href={"/humanList"}>인재정보 보기</Button>
+            </Card.Body>
+          </Card>
+        </div>
+      </div>
+    </Container>
   )
 }
 export default App;
