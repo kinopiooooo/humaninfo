@@ -31,11 +31,11 @@ function reducer(state = initialFollowing, action){
   if( action.type === 'addCount' ){
 
     let copy = [...state];
-    copy[0].good++;
+    copy[action.target].good++;
     return copy
   }else if(action.type === 'removeCount'){
     let copy = [...state];
-    if(copy[0].good>0) copy[0].good--;
+    if(copy[action.target].good>0) copy[action.target].good--;
     return copy
   }else{
     return state
