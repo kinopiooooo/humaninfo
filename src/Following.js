@@ -28,8 +28,8 @@ function Following(props){
                                     <td>{props.state[i].good}</td>
                                     <td>
                                         <ButtonGroup aria-label="Basic example">
-                                            <Button variant="primary" onClick={()=>{ props.dispatch({type : 'addCount', target : i}) }}>+</Button>
-                                            <Button variant="danger" onClick={()=>{ props.dispatch({type : 'removeCount', target : i}) }}>-</Button>
+                                            <Button variant="primary" onClick={()=>{ props.dispatch({type : 'addCount', payload : i}) }}>+</Button>
+                                            <Button variant="danger" onClick={()=>{ props.dispatch({type : 'removeCount', payload : i}) }}>-</Button>
                                         </ButtonGroup>
                                     </td>
                                 </tr>
