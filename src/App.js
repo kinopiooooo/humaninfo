@@ -76,7 +76,7 @@ function Home(){
               <Card.Title>기업 정보</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">DB에 저장된 기업정보</Card.Subtitle>
               <Card.Text>
-                여러 기업의 정보를 조회할 수 있습니다
+                기업의 정보를 조회할 수 있습니다
               </Card.Text>
               <Button variant="primary">기업정보 보기</Button>
             </Card.Body>
@@ -88,9 +88,9 @@ function Home(){
               <Card.Title>인재 정보</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">DB에 저장된 인재정보</Card.Subtitle>
               <Card.Text>
-                여러 관련 인재정보를 조회할 수 있습니다
+                관련 인재정보를 조회할 수 있습니다
               </Card.Text>
-              <Button variant="primary" href={"/humanList"}>인재정보 보기</Button>
+              <Button variant="primary" href={"/humanList"}>인재정보 보기</Button> 
             </Card.Body>
           </Card>
         </div>

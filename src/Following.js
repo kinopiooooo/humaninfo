@@ -16,7 +16,7 @@ function Following(props){
                         <th>이름</th>
                         <th>생년월일</th>
                         <th>성별</th>
-                        <th>좋아요</th>
+                        <th>좋아요</th> 
                         <th>변경</th>
                     </tr>
                 </thead>

@@ -84,7 +84,7 @@ function List(props){
                 dispatch({type : 'follow', payload :human[props.i]});
                 history.push('./following')
             }}>Follow</Button>
-        </ListGroup.Item>
+        </ListGroup.Item> 
     )
 }
 
