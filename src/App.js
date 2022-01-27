@@ -31,12 +31,12 @@ function App() {
     <div className="App">
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="/">Human-Info</Navbar.Brand>
+          <Navbar.Brand><Link to="/">Human-Info</Link></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="comList">기업 정보</Nav.Link>
-              <Nav.Link href="humanList">인재 정보</Nav.Link>
+              <Nav.Link><Link to="comList">기업 정보</Link></Nav.Link>
+              <Nav.Link><Link to="humanList">인재 정보</Link></Nav.Link>
 
               <NavDropdown title="MyPage" id="basic-nav-dropdown">
                 <NavDropdown.Item href="/following">Following</NavDropdown.Item>

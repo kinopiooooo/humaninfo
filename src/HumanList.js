@@ -3,7 +3,7 @@ import { Badge, Button, Container, ListGroup, Modal, Nav } from "react-bootstrap
 import {humanContext} from './App.js';
 import { CSSTransition } from 'react-transition-group';
 import './HumanList.scss'
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 function HumanList(props) {
@@ -37,9 +37,9 @@ function HumanList(props) {
                 human.map((item, i)=>{
                     return(
                     tabSex === 0
-                    ? <List setHuman={ props.setHuman } i={ i } setShow={setShow} settargetTitle={settargetTitle} key={ i } tabSwich={tabSwich} settabSwich={settabSwich} dispatch = {props.dispatch}></List>
+                    ? <List setHuman={ props.setHuman } i={ i } setShow={setShow} settargetTitle={settargetTitle} key={ i } tabSwich={tabSwich} settabSwich={settabSwich}></List>
                     :   ( tabSex === human[i].sex
-                        ?<List setHuman={ props.setHuman } i={ i } setShow={setShow} settargetTitle={settargetTitle} key={ i } tabSwich={tabSwich} settabSwich={settabSwich} dispatch = {props.dispatch}></List>
+                        ?<List setHuman={ props.setHuman } i={ i } setShow={setShow} settargetTitle={settargetTitle} key={ i } tabSwich={tabSwich} settabSwich={settabSwich}></List>
                         : null
                         )
                     )
@@ -58,7 +58,8 @@ function List(props){
         props.settabSwich(true)
     });
     let history = useHistory();
-
+    // let state = useSelector((state)=> state.reducer)
+    let dispatch = useDispatch();
     return(
         <ListGroup.Item as="li" action className="d-flex justify-content-between align-items-center" key={props.key}
             // onClick={()=>{setstrModal(!strModal);console.log(strModal)}}
@@ -78,10 +79,10 @@ function List(props){
                 event.stopPropagation()
             }}> <i className="bi bi-hand-thumbs-up"></i> <Badge bg="secondary" pill> {human[props.i].good} </Badge>
             </Button>
-            <Button variant="primary"onClick={(event)=>{
-                props.dispatch({type : 'follow', payload :human[props.i]});
-                history.push('./following')
+            <Button variant="primary" onClick={(event)=>{
                 event.stopPropagation()
+                dispatch({type : 'follow', payload :human[props.i]});
+                history.push('./following')
             }}>Follow</Button>
         </ListGroup.Item>
     )
@@ -110,10 +111,5 @@ function InfoModal(props){
     )
 }
 
-function storeToProps(state){
-    return{
-        state : state.reducer
-    }
-}
 
-export default connect(storeToProps)(HumanList);
+export default HumanList;

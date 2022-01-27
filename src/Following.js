@@ -1,7 +1,11 @@
 import React from "react";
 import { Alert, Button, ButtonGroup, Container, Table } from "react-bootstrap";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 function Following(props){
+
+    let state = useSelector((state)=> state.reducer)
+    let state2 = useSelector((state)=> state.reducer2)
+    let dispatch = useDispatch();
     return(
         <>
         <Container>
@@ -18,18 +22,18 @@ function Following(props){
                 </thead>
                 <tbody>
                     {
-                        props.state.map((item, i)=>{
+                        state.map((item, i)=>{
                             return(
                                 <tr key={i}>
                                     <td>1</td>
-                                    <td>{props.state[i].name}</td>
-                                    <td>{props.state[i].birth_y}년 {props.state[i].birth_m}월 {props.state[i].birth_d}일</td>
-                                    <td>{props.state[i].sex===1 ?'남':'여'}</td>
-                                    <td>{props.state[i].good}</td>
+                                    <td>{state[i].name}</td>
+                                    <td>{state[i].birth_y}년 {state[i].birth_m}월 {state[i].birth_d}일</td>
+                                    <td>{state[i].sex===1 ?'남':'여'}</td>
+                                    <td>{state[i].good}</td>
                                     <td>
                                         <ButtonGroup aria-label="Basic example">
-                                            <Button variant="primary" onClick={()=>{ props.dispatch({type : 'addCount', payload : i}) }}>+</Button>
-                                            <Button variant="danger" onClick={()=>{ props.dispatch({type : 'removeCount', payload : i}) }}>-</Button>
+                                            <Button variant="primary" onClick={()=>{ dispatch({type : 'addCount', payload : i}) }}>+</Button>
+                                            <Button variant="danger" onClick={()=>{ dispatch({type : 'removeCount', payload : i}) }}>-</Button>
                                         </ButtonGroup>
                                     </td>
                                 </tr>
@@ -38,11 +42,11 @@ function Following(props){
                     }
                 </tbody>
             </Table>
-            { props.alertState
+            { state2
             ?(
                 <Alert variant="warning">
                     <p>지금 고백하면 천국이 기다립니다.</p>
-                    <Button variant='light' onClick={()=>{ props.dispatch({type : 'closeAlert'})}}>닫기</Button>
+                    <Button variant='light' onClick={()=>{ dispatch({type : 'closeAlert'})}}>닫기</Button>
                 </Alert>
             )
             :null
@@ -51,11 +55,13 @@ function Following(props){
         </>
     )
 }
-function storeToProps(state){
-    return{
-        state : state.reducer,
-        alertState : state.reducer2
-    }
-}
+// function storeToProps(state){
+//     return{
+//         state : state.reducer,
+//         alertState : state.reducer2
+//     }
+// }
 
-export default connect(storeToProps)(Following);
+// export default connect(storeToProps)(Following);
+
+export default Following;

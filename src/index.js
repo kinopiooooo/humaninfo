@@ -12,10 +12,6 @@ import { combineReducers, createStore } from 'redux';
 
 let initialFollowing=[
   {id : 0, name : '한요시', "birth_y" : 1988, birth_m : 8, birth_d : 24, sex : 2, photo : "http://data.systemiclab.or.kr/upload/MEMBER/1629551241_339.jpg", good : 12},
-  {id : 0, name : '종아리', "birth_y" : 1988, birth_m : 8, birth_d : 24, sex : 2, photo : "http://data.systemiclab.or.kr/upload/MEMBER/1629551241_339.jpg", good : 12},
-  {id : 0, name : '오리', "birth_y" : 1988, birth_m : 8, birth_d : 24, sex : 2, photo : "http://data.systemiclab.or.kr/upload/MEMBER/1629551241_339.jpg", good : 12},
-  {id : 0, name : '꽉꽉이', "birth_y" : 1988, birth_m : 8, birth_d : 24, sex : 2, photo : "http://data.systemiclab.or.kr/upload/MEMBER/1629551241_339.jpg", good : 12},
-  {id : 0, name : '요렁이', "birth_y" : 1988, birth_m : 8, birth_d : 24, sex : 2, photo : "http://data.systemiclab.or.kr/upload/MEMBER/1629551241_339.jpg", good : 12}
 ]
 
 
@@ -29,9 +25,17 @@ function reducer2(state = true, action){
 
 function reducer(state = initialFollowing, action){
   if (action.type === 'follow'){
-    let copy = [...state];
-    copy.push(action.payload);
-    return copy
+    
+    let found = state.findIndex(state => state.id === action.payload.id)
+
+    if (found >=0){
+      alert('이미 팔로우 신청된 인재입니다.')
+      return ;
+    }else{
+      let copy = [...state];
+      copy.push(action.payload);
+      return copy
+    }
 
   }else if( action.type === 'addCount' ){
     let copy = [...state];
@@ -40,7 +44,11 @@ function reducer(state = initialFollowing, action){
 
   }else if(action.type === 'removeCount'){
     let copy = [...state];
-    if(copy[action.payload].good>0) copy[action.payload].good--;
+    if(copy[action.payload].good>0){
+      copy[action.payload].good--;
+    }else{
+      alert('더이상 좋아요수를 줄일 수 없습니다')
+    } 
     return copy
 
   }else{
