@@ -11,7 +11,7 @@ import { combineReducers, createStore } from 'redux';
 
 
 let initialFollowing=[
-  {id : 0, name : '한요시', "birth_y" : 1988, birth_m : 8, birth_d : 24, sex : 2, photo : "http://data.systemiclab.or.kr/upload/MEMBER/1629551241_339.jpg", good : 12},
+  {id : 1, name : '한요시', "birth_y" : 1988, birth_m : 8, birth_d : 24, sex : 2, photo : "http://data.systemiclab.or.kr/upload/MEMBER/1629551241_339.jpg", good : 12},
 ]
 
 
@@ -29,8 +29,9 @@ function reducer(state = initialFollowing, action){
     let found = state.findIndex(state => state.id === action.payload.id)
 
     if (found >=0){
+      let copy = [...state];
       alert('이미 팔로우 신청된 인재입니다.')
-      return ;
+      return copy
     }else{
       let copy = [...state];
       copy.push(action.payload);

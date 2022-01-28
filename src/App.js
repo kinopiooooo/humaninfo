@@ -4,7 +4,7 @@ import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from 'react';
 import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
-import { Link, Route, Routes, Switch } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 import HumanList from './HumanList';
 import Following from './Following';
 
@@ -35,8 +35,8 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link><Link to="comList">기업 정보</Link></Nav.Link>
-              <Nav.Link><Link to="humanList">인재 정보</Link></Nav.Link>
+              <Nav><Link to="comList" className='nav-link'>기업 정보</Link></Nav>
+              <Nav><Link to="humanList" className='nav-link'>인재 정보</Link></Nav>
 
               <NavDropdown title="MyPage" id="basic-nav-dropdown">
                 <NavDropdown.Item href="/following">Following</NavDropdown.Item>
